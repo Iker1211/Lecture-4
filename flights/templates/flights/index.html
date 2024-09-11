@@ -1,0 +1,25 @@
+{% extends "flights/layout.html" %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Flights</h1>
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h5 mb-0">Available Flights</h2>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for flight in flights %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>
+                        <i class="fas fa-plane-departure me-2"></i>
+                        Flight {{ flight.id }}: {{ flight.origin }} to {{ flight.destination }}
+                    </span>
+                    <span class="badge bg-secondary rounded-pill">Details</span>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-center text-muted">No flights available at the moment.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
