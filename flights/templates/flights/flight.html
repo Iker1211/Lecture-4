@@ -1,0 +1,79 @@
+{% extends "flights/layout.html" %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">{{ flight.id }}</h1>
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h5 mb-0">Details</h2>
+        </div>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>
+                        <i class="fas fa-plane-departure me-2"></i>
+                        Origin: {{ flight.origin }} 
+                    </span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>
+                        <i class="fas fa-plane-departure me-2"></i>
+                        Destination: {{ flight.destination }} 
+                    </span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>
+                        <i class="fas fa-plane-departure me-2"></i>
+                        Duration: {{ flight.duration }} 
+                    </span>
+                </li>
+        </ul>
+    </div>
+    
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h5 mb-0">Passengers</h2>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for passenger in passengers %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>
+                        <i class="fas fa-plane-departure me-2"></i>
+                        {{ passenger }}
+                    </span>
+                </li>
+            {% empty %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fas fa-plane-departure me-2"></i>
+                    No passengers on this flight.
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h5 mb-0">Add Passenger</h2>
+        </div>
+        <div class="card-body">
+            <form action="{% url 'book' flight.id %}" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <select name="passenger" class="form-select">
+                        {% for passenger in non_passengers %}
+                            <option value="{{ passenger.id }}">{{ passenger }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" class="btn btn-primary mt-2">
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<div class="d-flex justify-content-center">
+    <a href="{% url 'index' %}" class="btn btn-primary mt-3">Back to Flights</a>
+</div>
+{% endblock %}

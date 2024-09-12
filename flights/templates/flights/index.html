@@ -14,7 +14,7 @@
                         <i class="fas fa-plane-departure me-2"></i>
                         Flight {{ flight.id }}: {{ flight.origin }} to {{ flight.destination }}
                     </span>
-                    <span class="badge bg-secondary rounded-pill">Details</span>
+                    <span class="badge bg-secondary rounded-pill"><a href="{% url 'flight' flight.id %}">Details</a></span>
                 </li>
             {% empty %}
                 <li class="list-group-item text-center text-muted">No flights available at the moment.</li>
